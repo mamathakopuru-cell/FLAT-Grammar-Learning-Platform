@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ELIMINATION OF LEFT RECURSION AND LEFT FACTORING - B.Tech CSE FLAT</title>
+  <meta name="description" content="A premium academic web application for B.Tech CSE - Formal Languages and Automata Theory (FLAT). Learn elimination of Left Recursion and Left Factoring through interactive explanations, grammar simulator, quiz, and certificate of mastery.">
+  <meta property="og:title" content="ELIMINATION OF LEFT RECURSION AND LEFT FACTORING - B.Tech CSE FLAT">
+  <meta property="og:description" content="Master Left Recursion elimination and Left Factoring algorithms with interactive theory cards, grammar simulator, 10-question quiz, and luxury certificate.">
+
+  <!-- Google Fonts: Inter, Fira Code, and Playfair Display for Luxury Certificate -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600;700&family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;0,800;1,600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Floating Background Particles Canvas -->
+  <canvas id="particlesCanvas"></canvas>
+  <canvas id="confettiCanvas"></canvas>
+
+  <!-- Sticky Glass Navbar -->
+  <header class="navbar">
+    <div class="container nav-container">
+      <a href="#home" class="brand" id="navBrand">
+        <div class="brand-icon">FL</div>
+        <div class="brand-text">
+          <span class="brand-title">FLAT Studio</span>
+          <span class="brand-tag">B.Tech CSE Presentation</span>
+        </div>
+      </a>
+
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle Navigation Menu">☰</button>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home" class="nav-link active" id="navHome">Home</a></li>
+        <li><a href="#left-recursion" class="nav-link" id="navLeftRecursion">Left Recursion</a></li>
+        <li><a href="#left-factoring" class="nav-link" id="navLeftFactoring">Left Factoring</a></li>
+        <li><a href="#simulator" class="nav-link" id="navSimulator">Simulator</a></li>
+        <li><a href="#quiz" class="nav-link" id="navQuiz">Quiz</a></li>
+        <li><a href="#certificate" class="nav-link" id="navCertificate">Certificate</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- 1. HOME PAGE (Hero Section) -->
+  <section class="hero" id="home">
+    <div class="container hero-grid">
+      <div class="hero-content">
+        <div class="section-badge" id="heroBadge">
+          <span>⚡ B.Tech CSE Formal Languages & Automata Theory</span>
+        </div>
+
+        <h1 class="hero-headline gradient-title" id="heroTitle">
+          ELIMINATION OF LEFT RECURSION AND LEFT FACTORING
+        </h1>
+
+        <div class="hero-subtitle" id="heroSubtitle">
+          Formal Languages and Automata Theory (FLAT)
+        </div>
+
+        <p class="hero-desc" id="heroDesc">
+          Learn the elimination of Left Recursion and Left Factoring through interactive explanations, grammar transformation simulator, quiz and certificate.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#left-recursion" class="btn btn-primary" id="btnHeroLearn">
+            <span>🚀 Start Learning</span>
+          </a>
+          <a href="#simulator" class="btn btn-secondary" id="btnHeroSim">
+            <span>⚡ Simulator</span>
+          </a>
+          <a href="#quiz" class="btn btn-cyan" id="btnHeroQuiz">
+            <span>🏆 Quiz</span>
+          </a>
+        </div>
+
+        <div class="hero-stats">
+          <div class="stat-item">
+            <span class="stat-val neon-purple">CFG</span>
+            <span class="stat-lbl">Context-Free Grammar</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-val neon-cyan">LL(1)</span>
+            <span class="stat-lbl">Predictive Top-Down Parser</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-val gold-text">100%</span>
+            <span class="stat-lbl">Ambiguity Free</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hero Glass Card Live Preview -->
+      <div class="glass-panel hero-dashboard-card" id="heroDashboardCard">
+        <div class="card-topbar">
+          <div class="terminal-dots">
+            <span class="t-dot dot-red"></span>
+            <span class="t-dot dot-yellow"></span>
+            <span class="t-dot dot-green"></span>
+          </div>
+          <span class="terminal-title">FLAT :: LL(1) Preprocessor HUD</span>
+        </div>
+
+        <div style="font-size: 0.85rem; font-weight: 700; color: var(--neon-purple-light); margin-bottom: 8px;">
+          ORIGINAL GRAMMAR (Direct Left Recursion)
+        </div>
+        <div class="live-sample-box">
+          <div class="code-rule">
+            <span class="nt">E</span> <span class="arrow">→</span> <span class="nt">E</span> <span class="alpha">+ T</span> <span class="pipe">|</span> <span class="beta">T</span>
+          </div>
+        </div>
+
+        <div style="text-align: center; margin: 10px 0; color: var(--neon-cyan); font-weight: 800; font-size: 1.3rem;">
+          ↓ ALGORITHMIC ELIMINATION ↓
+        </div>
+
+        <div style="font-size: 0.85rem; font-weight: 700; color: #6ee7b7; margin-bottom: 8px;">
+          TRANSFORMED NON-LEFT-RECURSIVE GRAMMAR
+        </div>
+        <div class="live-sample-box" style="border-color: rgba(16, 185, 129, 0.4); background: rgba(6, 16, 26, 0.9);">
+          <div class="code-rule">
+            <span class="nt">E</span> <span class="arrow">→</span> <span class="beta">T</span> <span class="nt-new">E'</span>
+          </div>
+          <div class="code-rule">
+            <span class="nt-new">E'</span> <span class="arrow">→</span> <span class="alpha">+ T</span> <span class="nt-new">E'</span> <span class="pipe">|</span> <span class="epsilon">ε</span>
+          </div>
+        </div>
+
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 14px;">
+          <span style="font-size: 0.8rem; color: var(--text-dim);">Ready for Recursive-Descent Parsing</span>
+          <a href="#simulator" class="btn btn-secondary btn-sm" style="border-radius: var(--radius-sm);">Try Simulator →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. LEFT RECURSION SECTION -->
+  <section class="section section-alt" id="left-recursion">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-badge">Section 01 :: Theory & Algorithm</div>
+        <h2 class="section-title gradient-title">LEFT RECURSION</h2>
+        <p class="section-subtitle">
+          Understanding Left-Recursive Context-Free Grammars, top-down parsing constraints, and mathematical elimination algorithms.
+        </p>
+      </div>
+
+      <!-- EXACT DEFINITION BOX -->
+      <div class="neon-def-box" id="lrExactDefBox">
+        <div class="neon-def-text">
+          Left Recursion is a property of a Context-Free Grammar (CFG) in which a non-terminal appears as the leftmost symbol on the right-hand side of its own production. Such a grammar is called a left-recursive grammar.
+        </div>
+      </div>
+
+      <!-- CONCEPT CARDS (In Simple English) -->
+      <div class="concept-grid">
+        <div class="glass-card concept-card" id="cardConceptCfg">
+          <span class="concept-icon">📜</span>
+          <h3 class="concept-title">What is Context-Free Grammar (CFG)?</h3>
+          <p class="concept-desc">
+            A formal grammar <code>G = (V, T, P, S)</code> that specifies the syntax of programming languages, comprising Non-terminals (V), Terminals (T), Production Rules (P), and a Start symbol (S).
+          </p>
+        </div>
+
+        <div class="glass-card concept-card" id="cardConceptNt">
+          <span class="concept-icon">🏷️</span>
+          <h3 class="concept-title">What is a Non-terminal?</h3>
+          <p class="concept-desc">
+            Variables or syntactic placeholders (such as <code>E, T, F, A</code>) that can be iteratively expanded into strings of terminal symbols and other non-terminals.
+          </p>
+        </div>
+
+        <div class="glass-card concept-card" id="cardConceptLeftmost">
+          <span class="concept-icon">⬅️</span>
+          <h3 class="concept-title">Why Non-terminal Appears as Leftmost?</h3>
+          <p class="concept-desc">
+            In a production rule like <code>A → Aα</code>, the non-terminal <code>A</code> sits as the very first symbol on the right-hand side, meaning expanding <code>A</code> immediately begins with <code>A</code> itself.
+          </p>
+        </div>
+
+        <div class="glass-card concept-card" id="cardConceptWhyCalled">
+          <span class="concept-icon">🔄</span>
+          <h3 class="concept-title">Why this Grammar is Called Left Recursive?</h3>
+          <p class="concept-desc">
+            Because the recursion occurs strictly on the leftmost position. Derivations continually expand to the left indefinitely without consuming any terminal tokens from the input.
+          </p>
+        </div>
+
+        <div class="glass-card concept-card" id="cardConceptTopDownProblems">
+          <span class="concept-icon">⚠</span>
+          <h3 class="concept-title">Why Left Recursion Creates Problems for Top-Down Parsing?</h3>
+          <p class="concept-desc">
+            Top-down parsers (like recursive-descent) implement a function for each non-terminal. In <code>A → Aα</code>, procedure <code>A()</code> calls <code>A()</code> endlessly without reading an input token, causing an infinite loop and stack overflow.
+          </p>
+        </div>
+
+        <div class="glass-card concept-card" id="cardConceptWhyEliminate">
+          <span class="concept-icon">✨</span>
+          <h3 class="concept-title">Why Elimination of Left Recursion is Necessary?</h3>
+          <p class="concept-desc">
+            To transform left-recursive rules into equivalent right-recursive rules, allowing predictive top-down LL(1) parsers to parse source code deterministically without looping forever.
+          </p>
+        </div>
+      </div>
+
+      <!-- TYPES OF LEFT RECURSION -->
+      <h3 style="font-size: 1.8rem; font-weight: 800; color: #fff; margin-bottom: 24px; text-align: center;">
+        Types of Left Recursion
+      </h3>
+
+      <div class="types-grid">
+        <!-- Direct Left Recursion Card -->
+        <div class="glass-panel type-card" id="typeDirectCard">
+          <div class="type-header">
+            <h4 class="type-title">Direct Left Recursion</h4>
+            <span class="type-badge badge-purple">Immediate Call</span>
+          </div>
+          <p style="color: var(--text-muted); font-size: 0.95rem;">
+            Occurs when a non-terminal calls itself immediately in a single production rule.
+          </p>
+
+          <div class="formula-display">
+            <strong>General Form:</strong><br>
+            <span class="nt">A</span> <span class="arrow">→</span> <span class="nt">A</span><span class="alpha">α</span> <span class="pipe">|</span> <span class="beta">β</span>
+          </div>
+
+          <div class="symbol-breakdown">
+            <div class="sym-item">
+              <span class="sym-tag">A</span>
+              <span>The non-terminal symbol undergoing direct left recursion.</span>
+            </div>
+            <div class="sym-item">
+              <span class="sym-tag">α</span>
+              <span>Any non-empty string of terminals and non-terminals (α ≠ ε) trailing A.</span>
+            </div>
+            <div class="sym-item">
+              <span class="sym-tag">β</span>
+              <span>Any string of terminals and non-terminals that does NOT begin with A.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Indirect Left Recursion Card -->
+        <div class="glass-panel type-card" id="typeIndirectCard">
+          <div class="type-header">
+            <h4 class="type-title">Indirect Left Recursion</h4>
+            <span class="type-badge badge-cyan">Mutual Chain</span>
+          </div>
+          <p style="color: var(--text-muted); font-size: 0.95rem;">
+            Occurs through a cyclic sequence of two or more non-terminals (A expands to B, which eventually expands back to A).
+          </p>
+
+          <div class="formula-display">
+            <strong>General Form:</strong><br>
+            <span class="nt">A</span> <span class="arrow">→</span> <span class="beta">B</span><span class="alpha">α</span><br>
+            <span class="beta">B</span> <span class="arrow">→</span> <span class="nt">A</span><span class="alpha">β</span>
+          </div>
+
+          <div style="font-size: 0.92rem; color: var(--text-muted); line-height: 1.6;">
+            <strong>Derivation Trace:</strong><br>
+            <code>A ⇒ Bα ⇒ Aβα</code><br>
+            Here, <code>A</code> derives a sentential form starting with <code>A</code> through intermediate non-terminal <code>B</code>. Indirect left recursion is eliminated by ordering non-terminals and substituting earlier productions.
+          </div>
+        </div>
+      </div>
+
+      <!-- ALGORITHM TIMELINE -->
+      <h3 style="font-size: 1.8rem; font-weight: 800; color: #fff; margin-top: 40px; margin-bottom: 20px; text-align: center;">
+        Algorithm to Eliminate Left Recursion
+      </h3>
+
+      <div class="timeline-wrap">
+        <div class="timeline-step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <div class="step-title">Identify recursive productions</div>
+            <div class="step-desc">Scan all productions of non-terminal A to spot alternatives where A appears as the leftmost symbol.</div>
+          </div>
+        </div>
+
+        <div class="timeline-step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <div class="step-title">Separate recursive and non-recursive productions</div>
+            <div class="step-desc">Group the productions into recursive alternatives (<code>A → Aα₁, Aα₂, ...</code>) and non-recursive base alternatives (<code>A → β₁, β₂, ...</code>).</div>
+          </div>
+        </div>
+
+        <div class="timeline-step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <div class="step-title">Introduce new non-terminal A'</div>
+            <div class="step-desc">Create a new auxiliary non-terminal symbol <code>A'</code> to carry the right-recursive repetition.</div>
+          </div>
+        </div>
+
+        <div class="timeline-step">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <div class="step-title">Rewrite grammar</div>
+            <div class="step-desc">
+              Write: <code>A → β₁A' | β₂A' | ...</code> and<br>
+              <code>A' → α₁A' | α₂A' | ... | ε</code>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-step">
+          <div class="step-num">5</div>
+          <div class="step-content">
+            <div class="step-title">Final grammar becomes non-left recursive</div>
+            <div class="step-desc">The newly synthesized grammar generates the exact same language while being completely right-recursive and top-down friendly.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- EXACT EXAMPLE & STEP-BY-STEP ELIMINATION -->
+      <div class="example-box" id="lrExampleSection">
+        <div class="example-header">
+          <span class="example-label">STANDARD ARITHMETIC GRAMMAR EXAMPLE</span>
+          <span style="color: var(--neon-cyan); font-size: 0.85rem; font-weight: 600;">CLASSIC COMPILER TEST CASE</span>
+        </div>
+
+        <h4 style="color: #fff; font-size: 1.25rem; margin-bottom: 12px;">Original Grammar</h4>
+        <div style="background: rgba(0,0,0,0.4); padding: 18px; border-radius: var(--radius-sm); font-family: var(--font-mono); font-size: 1.15rem; line-height: 1.8;">
+          <div class="code-rule"><span class="nt">E</span> <span class="arrow">→</span> <span class="nt">E</span> <span class="alpha">+ T</span> <span class="pipe">|</span> <span class="beta">T</span></div>
+          <div class="code-rule"><span class="nt">T</span> <span class="arrow">→</span> <span class="nt">T</span> <span class="alpha">* F</span> <span class="pipe">|</span> <span class="beta">F</span></div>
+          <div class="code-rule"><span class="nt">F</span> <span class="arrow">→</span> ( <span class="nt">E</span> ) <span class="pipe">|</span> id</div>
+        </div>
+
+        <div style="margin: 28px 0 16px;">
+          <h4 style="color: #fff; font-size: 1.25rem; margin-bottom: 8px;">Step-by-Step Elimination</h4>
+          <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6;">
+            <strong>Step A:</strong> For non-terminal <code>E → E + T | T</code>, we have <code>α = + T</code> and <code>β = T</code>.<br>
+            Applying algorithm yields: <code>E → T E'</code> and <code>E' → + T E' | ε</code>.<br><br>
+            <strong>Step B:</strong> For non-terminal <code>T → T * F | F</code>, we have <code>α = * F</code> and <code>β = F</code>.<br>
+            Applying algorithm yields: <code>T → F T'</code> and <code>T' → * F T' | ε</code>.<br><br>
+            <strong>Step C:</strong> For non-terminal <code>F → ( E ) | id</code>, there is no left recursion. The productions remain unchanged.
+          </p>
+        </div>
+
+        <!-- Before -> After Showcase -->
+        <div class="transformation-showcase">
+          <div class="transform-card card-before">
+            <span class="transform-badge badge-before">Before Elimination</span>
+            <div style="font-family: var(--font-mono); font-size: 1.05rem; line-height: 1.8; color: #fca5a5;">
+              E → E + T | T<br>
+              T → T * F | F<br>
+              F → ( E ) | id
+            </div>
+            <div style="font-size: 0.8rem; color: #f87171; margin-top: 10px;">
+              ✖ Causes infinite recursive call loop in top-down parser.
+            </div>
+          </div>
+
+          <div class="arrow-divider">
+            ➔
+          </div>
+
+          <div class="transform-card card-after">
+            <span class="transform-badge badge-after">Final Non-Left-Recursive Grammar</span>
+            <div style="font-family: var(--font-mono); font-size: 1.05rem; line-height: 1.8; color: #86efac;">
+              E → T E'<br>
+              E' → + T E' | ε<br>
+              T → F T'<br>
+              T' → * F T' | ε<br>
+              F → ( E ) | id
+            </div>
+            <div style="font-size: 0.8rem; color: #4ade80; margin-top: 10px;">
+              ✓ Perfectly suited for recursive-descent and LL(1) parsers.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. LEFT FACTORING SECTION -->
+  <section class="section" id="left-factoring">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-badge">Section 02 :: Theory & Algorithm</div>
+        <h2 class="section-title gradient-title">LEFT FACTORING</h2>
+        <p class="section-subtitle">
+          Resolving common left prefixes to eliminate parser ambiguity and backtracking in predictive LL(1) compilers.
+        </p>
+      </div>
+
+      <!-- EXACT DEFINITION BOX -->
+      <div class="neon-highlight-box" id="lfExactDefBox">
+        <div class="neon-def-text">
+          If the productions are in the form<br>
+          <strong>A → αβ₁ | αβ₂ | αβ₃ | γ₁ | γ₂</strong><br>
+          then we say that the production is left factored or the process is called left factoring.<br>
+          The grammar having common left prefixes is called an ambiguous grammar, and left factoring is used to remove this ambiguity.
+        </div>
+      </div>
+
+      <!-- CONCEPT CARDS -->
+      <div class="concept-grid">
+        <div class="glass-card concept-card cyan-edge" id="cardConceptPrefix">
+          <span class="concept-icon">🔤</span>
+          <h3 class="concept-title">What is Common Prefix?</h3>
+          <p class="concept-desc">
+            A common prefix (α) is an identical initial sequence of terminals or non-terminals shared by two or more alternative production bodies of the same non-terminal symbol.
+          </p>
+        </div>
+
+        <div class="glass-card concept-card cyan-edge" id="cardConceptAmbiguous">
+          <span class="concept-icon">❓</span>
+          <h3 class="concept-title">What is Ambiguous Grammar?</h3>
+          <p class="concept-desc">
+            A grammar where a predictive parser cannot make a deterministic choice with 1-token lookahead because multiple production choices begin identically with the same prefix.
+          </p>
+        </div>
+
+        <div class="glass-card concept-card cyan-edge" id="cardConceptWhyAmbiguity">
+          <span class="concept-icon">🔀</span>
+          <h3 class="concept-title">Why Ambiguity Occurs?</h3>
+          <p class="concept-desc">
+            When seeing token <code>α</code> on the input tape, the parser cannot decide whether to expand to <code>αβ₁</code> or <code>αβ₂</code> without guessing or performing costly backtracking.
+          </p>
+        </div>
+
+        <div class="glass-card concept-card cyan-edge" id="cardConceptWhyRemoves">
+          <span class="concept-icon">🛡️</span>
+          <h3 class="concept-title">Why Left Factoring Removes Ambiguity?</h3>
+          <p class="concept-desc">
+            By factoring out the common prefix <code>α</code>, the decision is postponed: the parser first consumes <code>α</code>, and only then chooses between <code>β₁</code> and <code>β₂</code> based on the next token.
+          </p>
+        </div>
+
+        <div class="glass-card concept-card cyan-edge" id="cardConceptLL1">
+          <span class="concept-icon">🎯</span>
+          <h3 class="concept-title">Importance in LL(1) Parser</h3>
+          <p class="concept-desc">
+            An LL(1) parser requires disjoint FIRST sets for all alternatives of a non-terminal. Left factoring ensures distinct lookaheads, creating valid LL(1) parsing tables without collisions.
+          </p>
+        </div>
+      </div>
+
+      <!-- ALGORITHM FOR LEFT FACTORING -->
+      <h3 style="font-size: 1.8rem; font-weight: 800; color: #fff; margin-top: 40px; margin-bottom: 20px; text-align: center;">
+        Algorithm for Left Factoring
+      </h3>
+
+      <div class="timeline-wrap">
+        <div class="timeline-step">
+          <div class="step-num" style="background: linear-gradient(135deg, var(--neon-cyan), #0284c7);">1</div>
+          <div class="step-content">
+            <div class="step-title">Find common prefix</div>
+            <div class="step-desc">For non-terminal A, identify the longest common prefix string <code>α</code> among two or more of its alternative bodies.</div>
+          </div>
+        </div>
+
+        <div class="timeline-step">
+          <div class="step-num" style="background: linear-gradient(135deg, var(--neon-cyan), #0284c7);">2</div>
+          <div class="step-content">
+            <div class="step-title">Remove common prefix</div>
+            <div class="step-desc">Strip the common prefix <code>α</code> from each matching alternative to isolate remaining suffixes (<code>β₁, β₂, ...</code>).</div>
+          </div>
+        </div>
+
+        <div class="timeline-step">
+          <div class="step-num" style="background: linear-gradient(135deg, var(--neon-cyan), #0284c7);">3</div>
+          <div class="step-content">
+            <div class="step-title">Introduce new non-terminal</div>
+            <div class="step-desc">Create a new helper non-terminal <code>A'</code> to derive all remaining suffix options.</div>
+          </div>
+        </div>
+
+        <div class="timeline-step">
+          <div class="step-num" style="background: linear-gradient(135deg, var(--neon-cyan), #0284c7);">4</div>
+          <div class="step-content">
+            <div class="step-title">Rewrite productions</div>
+            <div class="step-desc">
+              Define <code>A → α A' | γ</code> (where γ represents alternatives without prefix α), and<br>
+              <code>A' → β₁ | β₂ | ...</code>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-step">
+          <div class="step-num" style="background: linear-gradient(135deg, var(--neon-cyan), #0284c7);">5</div>
+          <div class="step-content">
+            <div class="step-title">Final left factored grammar</div>
+            <div class="step-desc">Repeat the process until no two productions for any non-terminal share a common prefix.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- EXACT EXAMPLE & STEP-BY-STEP SOLUTION -->
+      <div class="example-box cyan-box" id="lfExampleSection">
+        <div class="example-header">
+          <span class="example-label" style="color: var(--neon-cyan);">STANDARD CONDITIONAL STATEMENT GRAMMAR (DANGLING-ELSE)</span>
+          <span style="color: var(--neon-purple-light); font-size: 0.85rem; font-weight: 600;">EXACT ACADEMIC SPECIFICATION</span>
+        </div>
+
+        <h4 style="color: #fff; font-size: 1.25rem; margin-bottom: 12px;">Example</h4>
+        <p style="color: var(--text-muted); font-size: 1rem; margin-bottom: 12px;">
+          Consider the given grammar <strong>G</strong>:
+        </p>
+
+        <div style="background: rgba(0,0,0,0.4); padding: 18px; border-radius: var(--radius-sm); font-family: var(--font-mono); font-size: 1.15rem; line-height: 1.8; margin-bottom: 18px;">
+          <strong>G = (V,T,P,S)</strong><br>
+          Where<br>
+          <strong>V = {S,E}</strong><br>
+          <strong>T = {a,b,e,i,t}</strong><br><br>
+          <strong>Productions</strong><br>
+          <span class="nt">S</span> <span class="arrow">→</span> <span class="prefix-hl">iEtS</span> <span class="pipe">|</span> <span class="prefix-hl">iEtS</span><span class="beta">eS</span> <span class="pipe">|</span> a<br>
+          <span class="nt">E</span> <span class="arrow">→</span> b
+        </div>
+
+        <h4 style="color: var(--neon-cyan); font-size: 1.25rem; margin-bottom: 8px;">Solution</h4>
+        <p style="color: #e2e8f0; font-size: 1.05rem; line-height: 1.7; margin-bottom: 18px;">
+          The common prefix is <strong style="color: var(--neon-cyan); background: rgba(6, 182, 212, 0.25); padding: 2px 8px; border-radius: 4px;">iEtS</strong>.<br>
+          So after left factoring:
+        </p>
+
+        <div style="background: rgba(6, 14, 34, 0.9); border: 1px solid var(--border-cyan); border-radius: var(--radius-sm); padding: 18px; font-family: var(--font-mono); font-size: 1.15rem; line-height: 1.8; margin-bottom: 22px;">
+          <div class="code-rule"><span class="nt">S</span> <span class="arrow">→</span> <span class="prefix-hl">iEtS</span><span class="nt-new">S'</span> <span class="pipe">|</span> a</div>
+          <div class="code-rule"><span class="nt-new">S'</span> <span class="arrow">→</span> <span class="beta">eS</span> <span class="pipe">|</span> <span class="epsilon">ε</span></div>
+          <div class="code-rule"><span class="nt">E</span> <span class="arrow">→</span> b</div>
+        </div>
+
+        <h4 style="color: #6ee7b7; font-size: 1.25rem; margin-bottom: 8px;">Final Left Factored Grammar</h4>
+        <div style="background: rgba(6, 24, 18, 0.85); border: 1px solid rgba(16, 185, 129, 0.4); border-radius: var(--radius-sm); padding: 18px; font-family: var(--font-mono); font-size: 1.15rem; line-height: 1.8;">
+          <span class="nt">S</span> <span class="arrow">→</span> <span class="prefix-hl">iEtS</span><span class="nt-new">S'</span> <span class="pipe">|</span> a<br>
+          <span class="nt-new">S'</span> <span class="arrow">→</span> eS <span class="pipe">|</span> ε<br>
+          <span class="nt">E</span> <span class="arrow">→</span> b
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. GRAMMAR TRANSFORMATION SIMULATOR -->
+  <section class="section section-alt" id="simulator">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-badge">Section 03 :: Interactive Laboratory</div>
+        <h2 class="section-title gradient-title">GRAMMAR TRANSFORMATION SIMULATOR</h2>
+        <p class="section-subtitle">
+          Test, detect, and transform any Context-Free Grammar with real-time left recursion elimination and left factoring algorithms.
+        </p>
+      </div>
+
+      <div class="glass-panel simulator-panel" id="simulatorPanel">
+        <!-- Quick Load Chips -->
+        <div style="margin-bottom: 18px; display: flex; flex-wrap: wrap; align-items: center; gap: 10px;">
+          <span style="font-size: 0.82rem; font-weight: 700; color: var(--text-dim); text-transform: uppercase;">Quick Academic Presets:</span>
+          <button class="btn btn-secondary btn-sm sample-chip" data-sample="E -> E + T | T&#10;T -> T * F | F&#10;F -> ( E ) | id" id="chipSampleLR">
+            Left Recursion (E → E + T | T)
+          </button>
+          <button class="btn btn-secondary btn-sm sample-chip" data-sample="S -> iEtS | iEtSeS | a&#10;E -> b" id="chipSampleLF">
+            Left Factoring (S → iEtS | iEtSeS | a)
+          </button>
+          <button class="btn btn-secondary btn-sm sample-chip" data-sample="A -> A a | b | c" id="chipSampleSimple">
+            Simple Direct (A → A a | b)
+          </button>
+        </div>
+
+        <div class="simulator-grid">
+          <!-- Editor Column -->
+          <div>
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+              <label for="simInput" style="font-weight: 700; font-size: 0.92rem; color: #fff;">Context-Free Grammar Input:</label>
+              <!-- Math/Grammar Symbol Helper Buttons -->
+              <div style="display: flex; gap: 6px;">
+                <button class="btn btn-secondary btn-sm sym-btn" data-sym="→" title="Insert Arrow">→</button>
+                <button class="btn btn-secondary btn-sm sym-btn" data-sym="|" title="Insert Pipe">|</button>
+                <button class="btn btn-secondary btn-sm sym-btn" data-sym="ε" title="Insert Epsilon">ε</button>
+                <button class="btn btn-secondary btn-sm sym-btn" data-sym="E'" title="Insert E'">E'</button>
+                <button class="btn btn-secondary btn-sm sym-btn" data-sym="S'" title="Insert S'">S'</button>
+              </div>
+            </div>
+
+            <textarea id="simInput" class="sim-input-box" placeholder="Enter grammar productions, one per line:&#10;E -> E + T | T&#10;T -> T * F | F&#10;F -> ( E ) | id">E -> E + T | T
+T -> T * F | F
+F -> ( E ) | id</textarea>
+
+            <!-- Simulator Action Buttons -->
+            <div class="sim-actions-row">
+              <button class="btn btn-primary" id="btnDetectLR">
+                🔍 Detect Left Recursion
+              </button>
+              <button class="btn btn-cyan" id="btnDetectLF">
+                🔍 Detect Left Factoring
+              </button>
+              <button class="btn btn-gold" id="btnTransform">
+                ⚡ Transform Grammar
+              </button>
+              <button class="btn btn-secondary" id="btnReset">
+                ↺ Reset
+              </button>
+            </div>
+          </div>
+
+          <!-- Output Column -->
+          <div class="sim-output-card" id="simOutputCard">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid rgba(255, 255, 255, 0.08);">
+              <span style="font-size: 0.85rem; font-weight: 800; color: var(--neon-cyan); letter-spacing: 0.05em;">TRANSFORMATION ENGINE OUTPUT</span>
+              <button class="btn btn-secondary btn-sm" id="btnCopySimOutput" style="padding: 4px 12px; font-size: 0.78rem;">
+                📋 Copy
+              </button>
+            </div>
+
+            <div class="sim-output-body" id="simOutput">
+              <div style="color: var(--text-dim); text-align: center; padding: 40px 10px;">
+                <span style="font-size: 2rem; display: block; margin-bottom: 8px;">⚡</span>
+                Ready. Click "Detect Left Recursion", "Detect Left Factoring", or "Transform Grammar".
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. INTERACTIVE QUIZ SECTION -->
+  <section class="section" id="quiz">
+    <div class="container quiz-container">
+      <div class="section-header">
+        <div class="section-badge">Section 04 :: Knowledge Assessment</div>
+        <h2 class="section-title gradient-title">FLAT MASTERY QUIZ</h2>
+        <p class="section-subtitle">
+          Test your conceptual understanding of Left Recursion elimination and Left Factoring with 10 academic questions.
+        </p>
+      </div>
+
+      <div class="glass-panel" style="padding: 36px;" id="quizMainPanel">
+        <!-- Quiz Intro State -->
+        <div id="quizIntroBox" style="text-align: center; padding: 24px 10px;">
+          <div style="font-size: 3.2rem; margin-bottom: 16px;">🏆</div>
+          <h3 style="font-size: 1.8rem; font-weight: 800; color: #fff; margin-bottom: 12px;">
+            10 Academic Multiple Choice Questions
+          </h3>
+          <p style="color: var(--text-muted); max-width: 580px; margin: 0 auto 28px; line-height: 1.6;">
+            Covers Left Recursion, Direct & Indirect forms, Common Prefix factoring, CFG components, algorithms, and classic example derivations.
+          </p>
+          <div style="display: flex; justify-content: center; gap: 24px; margin-bottom: 32px; font-size: 0.95rem; color: #cbd5e1;">
+            <div>⏱ <strong>60s</strong> Countdown per Question</div>
+            <div>📊 <strong>10</strong> Total Questions</div>
+            <div>🎓 <strong>Instant</strong> Score & Feedback</div>
+          </div>
+          <button class="btn btn-primary" id="btnStartQuiz" style="padding: 15px 42px; font-size: 1.05rem;">
+            ⚡ Start 10-Question Quiz Now
+          </button>
+        </div>
+
+        <!-- Quiz Active State -->
+        <div id="quizActiveBox" style="display: none;">
+          <div class="quiz-hud">
+            <span id="quizCounter" style="font-weight: 700; color: var(--neon-purple-light);">Question 1 of 10</span>
+            <div class="quiz-timer" id="quizTimerDisplay">⏱ 00:60</div>
+            <span id="quizScoreHUD" style="font-weight: 700; color: #10b981;">Score: 0 / 0</span>
+          </div>
+
+          <div class="progress-track">
+            <div class="progress-fill" id="quizProgressFill"></div>
+          </div>
+
+          <div class="quiz-question-title" id="quizQuestionText">Loading question...</div>
+
+          <div class="quiz-options" id="quizOptionsContainer"></div>
+
+          <div class="quiz-feedback-card" id="quizFeedback"></div>
+
+          <div style="text-align: right;">
+            <button class="btn btn-primary" id="btnNextQuestion" style="display: none;">
+              Next Question →
+            </button>
+          </div>
+        </div>
+
+        <!-- Quiz Completed State -->
+        <div id="quizResultsBox" style="display: none; text-align: center; padding: 24px 10px;">
+          <div style="font-size: 3.5rem; margin-bottom: 16px;">🎉</div>
+          <h3 style="font-size: 2.2rem; font-weight: 900; color: #fff; margin-bottom: 8px;">
+            Assessment Completed!
+          </h3>
+          <div style="font-size: 1.4rem; font-weight: 800; color: var(--gold-primary); margin-bottom: 14px;">
+            Your Final Score: <span id="finalScoreText">10 / 10</span>
+          </div>
+          <p id="finalScoreMsg" style="color: var(--text-muted); max-width: 620px; margin: 0 auto 30px; line-height: 1.6;">
+            Congratulations! You have completed the FLAT evaluation.
+          </p>
+          <div style="display: flex; justify-content: center; gap: 16px; flex-wrap: wrap;">
+            <button class="btn btn-gold" id="btnClaimCertFromQuiz">
+              📜 View & Claim Certificate
+            </button>
+            <button class="btn btn-secondary" id="btnRestartQuiz">
+              ↺ Retake Quiz
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. CERTIFICATE SECTION -->
+  <section class="section section-alt" id="certificate">
+    <div class="container cert-section-wrapper">
+      <div class="section-header">
+        <div class="section-badge">Section 05 :: Academic Honor</div>
+        <h2 class="section-title gradient-title">CERTIFICATE OF MASTERY</h2>
+        <p class="section-subtitle">
+          University Verified Presentation Credential for Formal Languages and Automata Theory (FLAT).
+        </p>
+      </div>
+
+      <!-- Preview Trigger Card -->
+      <div class="glass-panel cert-preview-card open-cert-trigger" style="padding: 36px;">
+        <div style="font-size: 3rem; margin-bottom: 12px;">📜</div>
+        <h3 style="font-size: 1.6rem; font-weight: 800; color: var(--gold-primary); margin-bottom: 8px;">
+          Certificate of Mastery
+        </h3>
+        <p style="color: var(--text-muted); font-size: 1.05rem; margin-bottom: 20px;">
+          Issued to <strong style="color: #fff; font-size: 1.25rem;">Mamatha</strong> for demonstrated excellence in <strong>Elimination of Left Recursion and Left Factoring</strong>.
+        </p>
+        <button class="btn btn-gold">
+          🌟 Open Luxury Certificate
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- LUXURY UNIVERSITY CERTIFICATE MODAL POPUP -->
+  <div class="modal-backdrop" id="certModal">
+    <div class="modal-content-box">
+      <button class="modal-close" id="btnCloseCert" aria-label="Close Certificate">✕</button>
+
+      <!-- Exact Luxury University Certificate Frame -->
+      <div class="luxury-certificate" id="printableCertificate">
+        <!-- Watermark -->
+        <div class="cert-watermark-flat">FLAT</div>
+
+        <!-- Top Header -->
+        <div class="cert-header">
+          <div class="cert-emblem">🏛️</div>
+          <div class="cert-dept-header">
+            <div class="cert-dept-title">Department of Computer Science and Engineering</div>
+            <div class="cert-course-tag">Formal Languages and Automata Theory (FLAT) • B.Tech CSE</div>
+          </div>
+          <div class="cert-id-badge">ID: FLAT-CSE-2026-MAMATHA-8842</div>
+        </div>
+
+        <!-- Certificate Title -->
+        <h2 class="cert-main-heading gold-text">
+          CERTIFICATE OF MASTERY
+        </h2>
+
+        <div class="cert-intro-text">
+          This is to formally certify that
+        </div>
+
+        <!-- Student Name (Exact: Mamatha) -->
+        <div class="cert-recipient-wrap">
+          <div class="cert-recipient-name">
+            Mamatha
+          </div>
+        </div>
+
+        <div class="cert-intro-text" style="margin-bottom: 12px;">
+          has successfully demonstrated comprehensive theoretical mastery and computational implementation in
+        </div>
+
+        <!-- Subject Name -->
+        <div class="cert-body-paragraph">
+          <strong style="color: var(--gold-primary); font-size: 1.22rem; display: block; margin-bottom: 6px;">
+            ELIMINATION OF LEFT RECURSION AND LEFT FACTORING
+          </strong>
+          including Context-Free Grammar transformations, deterministic LL(1) predictive parsing preparations, and lookahead ambiguity resolution within the Department of Computer Science and Engineering.
+        </div>
+
+        <!-- Middle Verified Seal -->
+        <div class="cert-seal-center">
+          <div class="gold-seal-badge">
+            <span>OFFICIAL</span>
+            <span>VERIFIED</span>
+            <span>★ CSE ★</span>
+          </div>
+        </div>
+
+        <!-- Professor Section (Two Circular Profile Photos with Signatures) -->
+        <div class="professors-row">
+          <!-- Left: Dr. Veeraiah -->
+          <div class="prof-card">
+            <div class="prof-avatar-wrap">
+              <!-- Inline Professional Avatar SVG -->
+              <svg class="prof-avatar-img" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <rect width="100" height="100" fill="#0b1338"/>
+                <circle cx="50" cy="40" r="22" fill="#e2e8f0"/>
+                <path d="M20 92 C20 68, 32 58, 50 58 C68 58, 80 68, 80 92 Z" fill="#3b82f6"/>
+                <circle cx="43" cy="38" r="3" fill="#1e293b"/>
+                <circle cx="57" cy="38" r="3" fill="#1e293b"/>
+                <path d="M42 32 Q50 30 58 32" stroke="#1e293b" stroke-width="2" fill="none"/>
+                <path d="M47 48 Q50 52 53 48" stroke="#1e293b" stroke-width="2" fill="none"/>
+                <!-- Academic Glasses -->
+                <rect x="37" y="34" width="11" height="8" rx="2" fill="none" stroke="#d97706" stroke-width="1.5"/>
+                <rect x="52" y="34" width="11" height="8" rx="2" fill="none" stroke="#d97706" stroke-width="1.5"/>
+                <line x1="48" y1="38" x2="52" y2="38" stroke="#d97706" stroke-width="1.5"/>
+              </svg>
+            </div>
+            <!-- Calligraphic Signature -->
+            <svg class="prof-signature-svg" viewBox="0 0 160 40" xmlns="http://www.w3.org/2000/svg">
+              <path d="M10 28 Q30 5 45 22 T80 18 Q110 32 125 15 T150 24" fill="none" stroke="#38bdf8" stroke-width="2.2" stroke-linecap="round"/>
+            </svg>
+            <div class="prof-name">Dr. Veeraiah</div>
+            <div class="prof-title">Professor</div>
+          </div>
+
+          <!-- Right: Prof. Veeraiah -->
+          <div class="prof-card">
+            <div class="prof-avatar-wrap">
+              <!-- Inline Professional Avatar SVG -->
+              <svg class="prof-avatar-img" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <rect width="100" height="100" fill="#0b1338"/>
+                <circle cx="50" cy="40" r="22" fill="#cbd5e1"/>
+                <path d="M20 92 C20 68, 32 58, 50 58 C68 58, 80 68, 80 92 Z" fill="#8b5cf6"/>
+                <circle cx="43" cy="38" r="3" fill="#0f172a"/>
+                <circle cx="57" cy="38" r="3" fill="#0f172a"/>
+                <path d="M42 31 Q50 28 58 31" stroke="#0f172a" stroke-width="2" fill="none"/>
+                <path d="M46 47 Q50 50 54 47" stroke="#0f172a" stroke-width="2" fill="none"/>
+                <!-- Academic Stole/Tie -->
+                <polygon points="50,58 46,75 50,85 54,75" fill="#fbbf24"/>
+              </svg>
+            </div>
+            <!-- Calligraphic Signature -->
+            <svg class="prof-signature-svg" viewBox="0 0 160 40" xmlns="http://www.w3.org/2000/svg">
+              <path d="M15 22 Q40 8 60 25 T100 15 Q125 35 145 20" fill="none" stroke="#fbbf24" stroke-width="2.2" stroke-linecap="round"/>
+            </svg>
+            <div class="prof-name">Prof. Veeraiah</div>
+            <div class="prof-title">Head of Department</div>
+          </div>
+        </div>
+
+        <!-- Date Line -->
+        <div class="cert-date-line">
+          Date of Issue: <span id="certDateValue" style="color: #cbd5e1; font-weight: 600;">October 2026</span> • Validated for Academic Presentation
+        </div>
+      </div>
+
+      <!-- Controls Bar Outside Printable Area -->
+      <div class="cert-controls-bar">
+        <div style="font-size: 0.88rem; color: var(--text-dim);">
+          Tip: Click "Download Certificate" to save as high-resolution PDF.
+        </div>
+        <div style="display: flex; gap: 12px;">
+          <button class="btn btn-gold" id="btnPrintCert">
+            🖨 Download / Print Certificate
+          </button>
+          <button class="btn btn-secondary" onclick="document.getElementById('certModal').classList.remove('open')">
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7. FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div>
+          <div style="font-size: 1.3rem; font-weight: 800; color: #fff; margin-bottom: 6px;">
+            FLAT Studio • Academic Presentation
+          </div>
+          <div class="footer-credits">
+            B.Tech CSE • Department of Computer Science and Engineering<br>
+            <span style="color: var(--neon-cyan);">Designed for FLAT Academic Presentation</span>
+          </div>
+        </div>
+
+        <div class="footer-socials">
+          <span class="social-pill">💻 B.Tech CSE</span>
+          <span class="social-pill">🏛️ Department of CSE</span>
+          <span class="social-pill">⚡ FLAT 2026</span>
+        </div>
+      </div>
+
+      <div style="text-align: center; font-size: 0.8rem; color: var(--text-dim);">
+        ELIMINATION OF LEFT RECURSION AND LEFT FACTORING • Interactive College Presentation Project
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+{
+  "name": "Remix FLAT Grammar Studio - Left Recursion \u0026 Left Factoring",
+  "description": "A futuristic interactive laboratory for Formal Languages and Automata Theory covering Left Recursion elimination, Left Factoring, grammar simulators, animated derivations, quiz with confetti, and certificate generator.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
